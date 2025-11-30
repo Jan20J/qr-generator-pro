@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Generador QR Pro</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+<div class="main-container">
+    <header class="app-header">
+        <div class="logo">
+            <h1><i class="fa-solid fa-qrcode"></i> QR Creator Pro</h1>
+        </div>
+        
+        <div class="theme-toggle-wrapper">
+            <i class="fa-solid fa-sun"></i>
+            <label class="switch">
+                <input type="checkbox" id="themeToggle">
+                <span class="slider round"></span>
+            </label>
+            <i class="fa-solid fa-moon"></i>
+        </div>
+    </header>
+
+    <div class="content-wrapper">
+        
+        <section class="config-panel box-shadow">
+            
+            <div class="tabs-nav">
+                <button class="tab-btn active" onclick="switchTab('link')"><i class="fa-solid fa-link"></i> Link</button>
+                <button class="tab-btn" onclick="switchTab('text')"><i class="fa-solid fa-align-left"></i> Texto</button>
+                <button class="tab-btn" onclick="switchTab('wifi')"><i class="fa-solid fa-wifi"></i> WiFi</button>
+            </div>
+
+            <div class="panel-content">
+                <div id="form-link" class="form-group"><input type="url" id="inp-link" placeholder="Ej: https://mi-web.com" class="main-input"></div>
+                <div id="form-text" class="form-group hidden"><textarea id="inp-text" rows="4" placeholder="Escribe tu texto..." class="main-input"></textarea></div>
+                <div id="form-wifi" class="form-group hidden">
+                    <input type="text" id="ssid" placeholder="Red Wi-Fi (SSID)" class="mb-2">
+                    <input type="password" id="password" placeholder="Contraseña" class="mb-2">
+                    <select id="encryption">
+                        <option value="WPA">WPA/WPA2</option>
+                        <option value="WEP">WEP</option>
+                        <option value="nopass">Sin Clave</option>
+                    </select>
+                </div>
+
+                <hr class="divider">
+
+                <div class="customization-section">
+                    <h3><i class="fa-solid fa-sliders"></i> Personalización</h3>
+                    
+                    <div class="control-row three-col">
+                        <div class="color-picker">
+                            <label>QR</label>
+                            <input type="color" id="fillColor" value="#000000">
+                        </div>
+                        <div class="color-picker">
+                            <label>Fondo</label>
+                            <input type="color" id="backColor" value="#ffffff">
+                        </div>
+                         <div class="input-wrapper">
+                            <label for="errorLevel" style="font-size:0.8rem">Legibilidad</label>
+                            <select id="errorLevel" class="sm-select">
+                                <option value="L">Baja (7%)</option>
+                                <option value="M">Media (15%)</option>
+                                <option value="Q">Alta (25%)</option>
+                                <option value="H" selected>Máxima (30%)</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="checkbox-wrap">
+                        <input type="checkbox" id="transparentBg"> 
+                        <label for="transparentBg">Fondo Transparente</label>
+                    </div>
+
+                    <div class="pattern-selector mt-2">
+                        <label>Patrón del Cuerpo</label>
+                        <div class="grid-options" id="bodyGrid">
+                            <div class="grid-opt active" data-val="square"><i class="fa-solid fa-square"></i></div>
+                            <div class="grid-opt" data-val="rounded"><i class="fa-solid fa-square-full" style="border-radius: 4px;"></i></div>
+                            <div class="grid-opt" data-val="circle"><i class="fa-solid fa-circle"></i></div>
+                            <div class="grid-opt" data-val="gapped"><i class="fa-solid fa-border-all"></i></div>
+                            <div class="grid-opt" data-val="horizontal"><i class="fa-solid fa-bars"></i></div>
+                            <div class="grid-opt" data-val="vertical"><i class="fa-solid fa-grip-lines-vertical"></i></div>
+                        </div>
+                        <input type="hidden" id="bodyStyle" value="square">
+                    </div>
+
+                    <div class="pattern-selector mt-2">
+                        <label>Patrón de Ojos</label>
+                        <div class="grid-options" id="eyeGrid">
+                            <div class="grid-opt active" data-val="square"><i class="fa-regular fa-square"></i></div>
+                            <div class="grid-opt" data-val="rounded"><i class="fa-regular fa-square" style="border-radius: 5px;"></i></div>
+                            <div class="grid-opt" data-val="circle"><i class="fa-regular fa-circle"></i></div>
+                        </div>
+                        <input type="hidden" id="eyeStyle" value="square">
+                    </div>
+
+                </div>
+                <button class="generate-btn" onclick="generarQR()">Actualizar QR</button>
+            </div>
+        </section>
+
+        <section class="preview-panel box-shadow">
+            <h3>Vista Previa</h3>
+            
+            <div class="dashed-preview-area">
+                <div class="qr-card">
+                    <div id="qrContainer" class="qr-img-wrapper">
+                        <p class="placeholder-text">Tu QR aquí</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="download-section">
+                <h4>Opciones de Descarga</h4>
+                <div class="dl-row">
+                    <div class="dl-group">
+                        <label>Formato</label>
+                        <select id="formatSelect">
+                            <option value="png">Imagen PNG</option>
+                            <option value="jpg">Imagen JPG</option>
+                        </select>
+                    </div>
+                    <div class="dl-group">
+                        <label>Tamaño (px)</label>
+                        <select id="sizeSelect">
+                            <option value="500">500 x 500</option>
+                            <option value="1000" selected>1000 x 1000 (4K)</option>
+                            <option value="2000">2000 x 2000 (8K)</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="dl-btn" onclick="descargar()">
+                    <i class="fa-solid fa-download"></i> Descargar Ahora
+                </button>
+            </div>
+        </section>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

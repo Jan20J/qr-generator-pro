@@ -1,0 +1,128 @@
+:root {
+    /* Variables Modo Claro (Default) */
+    --bg-body: #f4f7f6;
+    --bg-panel: #ffffff;
+    --text-main: #333333;
+    --text-muted: #666666;
+    --primary: #00897b;
+    --primary-hover: #00796b;
+    --border: #e0e0e0;
+    --bg-input: #ffffff;
+    --bg-dashed: #f8f9fa;
+    --border-dashed: #cbd5e1;
+    --bg-download: #f1f5f9;
+}
+
+[data-theme="dark"] {
+    /* Variables Modo Oscuro */
+    --bg-body: #121212;
+    --bg-panel: #1e1e1e;
+    --text-main: #e0e0e0;
+    --text-muted: #a0a0a0;
+    --primary: #26a69a; /* Un poco más brillante para contraste */
+    --primary-hover: #4db6ac;
+    --border: #333333;
+    --bg-input: #2c2c2c;
+    --bg-dashed: #252525;
+    --border-dashed: #444444;
+    --bg-download: #2c2c2c;
+}
+
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg-body); color: var(--text-main); margin: 0; padding: 20px; transition: background 0.3s, color 0.3s; }
+.main-container { max-width: 1100px; margin: 0 auto; }
+
+/* Header & Toggle */
+.app-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+.theme-toggle-wrapper { display: flex; align-items: center; gap: 10px; color: var(--text-main); }
+
+/* Switch Toggle CSS */
+.switch { position: relative; display: inline-block; width: 50px; height: 24px; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; }
+.slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 4px; bottom: 4px; background-color: white; transition: .4s; }
+input:checked + .slider { background-color: var(--primary); }
+input:checked + .slider:before { transform: translateX(26px); }
+.slider.round { border-radius: 34px; }
+.slider.round:before { border-radius: 50%; }
+
+/* Layout & Panels */
+.content-wrapper { display: flex; gap: 25px; align-items: flex-start; }
+.config-panel, .preview-panel { background: var(--bg-panel); border-radius: 12px; padding: 25px; transition: background 0.3s; }
+.config-panel { flex: 1.2; } /* Un poco más ancho el panel de config */
+.preview-panel { flex: 1; position: sticky; top: 20px; }
+.box-shadow { box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+
+/* Inputs y Tabs */
+.tabs-nav { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 2px solid var(--border); padding-bottom: 10px; }
+.tab-btn { flex: 1; padding: 10px; border: none; background: none; cursor: pointer; font-weight: 600; color: var(--text-muted); border-radius: 6px; }
+.tab-btn.active { background: var(--primary); color: white; }
+
+input, select, textarea { 
+    width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 6px; 
+    background: var(--bg-input); color: var(--text-main); box-sizing: border-box; 
+}
+.hidden { display: none; }
+.divider { border: 0; border-top: 1px solid var(--border); margin: 20px 0; }
+
+/* Customization Grid */
+.control-row { display: flex; gap: 10px; margin-bottom: 15px; }
+.control-row.three-col > * { flex: 1; }
+.color-picker { display: flex; flex-direction: column; gap: 5px; }
+.color-picker input { height: 40px; padding: 2px; cursor: pointer; }
+
+/* Grid de Patrones */
+.grid-options { display: flex; gap: 10px; flex-wrap: wrap; }
+.grid-opt { 
+    width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; 
+    border: 2px solid var(--border); border-radius: 8px; cursor: pointer; color: var(--text-muted);
+}
+.grid-opt:hover { background: var(--border); }
+.grid-opt.active { border-color: var(--primary); color: var(--primary); background: rgba(0, 137, 123, 0.1); }
+
+/* --- NUEVA VISTA PREVIA (Estilo Tarjeta) --- */
+.dashed-preview-area {
+    background: var(--bg-dashed);
+    border: 2px dashed var(--border-dashed);
+    border-radius: 12px;
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+    margin-bottom: 20px;
+}
+
+.qr-card {
+    background: #ffffff; /* La tarjeta del QR siempre blanca para contraste, o usa var(--bg-panel) si prefieres */
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1); /* Sombra elegante */
+    transition: transform 0.3s;
+}
+.qr-card:hover { transform: translateY(-2px); }
+
+.qr-img-wrapper img { display: block; max-width: 100%; width: 200px; height: auto; border-radius: 4px; }
+.placeholder-text { color: #aaa; font-style: italic; }
+
+/* Area de Descarga (Caja Gris Abajo) */
+.download-section { background: var(--bg-download); padding: 20px; border-radius: 10px; }
+.download-section h4 { margin: 0 0 15px 0; font-size: 0.95rem; color: var(--text-main); }
+.dl-row { display: flex; gap: 15px; margin-bottom: 15px; }
+.dl-group { flex: 1; }
+.dl-group label { display: block; font-size: 0.8rem; margin-bottom: 5px; color: var(--text-muted); }
+
+.generate-btn, .dl-btn { 
+    width: 100%; padding: 14px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1rem; color: white; transition: 0.2s; 
+}
+.generate-btn { background: var(--primary); margin-top: 20px; }
+.generate-btn:hover { background: var(--primary-hover); }
+.dl-btn { background: #10b981; } /* Verde descarga */
+.dl-btn:hover { background: #059669; }
+
+/* RESPONSIVE DESIGN (Respuesta a tu pregunta) */
+@media (max-width: 850px) {
+    .content-wrapper { flex-direction: column; }
+    .config-panel, .preview-panel { width: 100%; box-sizing: border-box; }
+    .preview-panel { position: static; order: -1; /* Pone el preview arriba en móviles si quieres, o quita esta linea */ }
+    .dl-row { flex-direction: column; }
+}
