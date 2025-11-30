@@ -1,4 +1,5 @@
-const BACKEND_URL = "http://127.0.0.1:5000"; 
+
+const BACKEND_URL = "https://qr-backend-3gmy.onrender.com";
 let currentTab = 'link';
 
 // --- LÓGICA DE TEMA (DARK MODE) ---
